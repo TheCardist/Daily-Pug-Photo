@@ -6,7 +6,7 @@ import keyring
 
 
 def get_pug():
-    '''Get a random pug image from the Pug Reddit page'''
+    """Get a random pug image from the Pug Reddit page"""
 
     reddit = praw.Reddit(
     client_id= keyring.get_password('reddit', 'client-id'),
@@ -30,14 +30,15 @@ def get_pug():
 
 
 def get_contacts():
+    """Get the contacts for sms messaging"""
     with open('phone_contact.txt', 'r') as file:
         contacts = [contact.strip() for contact in file]
     return contacts
 
 
 def send_sms(url, contacts):
+    """Send the sms to each users using Twilio API"""
     for item in contacts:
-        # Set environment variables for your credentials
         account_sid = keyring.get_password('twilio', 'sid')
         auth_token = keyring.get_password('twilio', 'token')
         client = Client(account_sid, auth_token)
